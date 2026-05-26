@@ -7,6 +7,10 @@ Pi extensions for Jim Kring's coding workflow.
 - `pr-status`: shows the current GitHub PR number and title in the Pi footer.
 - `session-name`: exposes session naming as an LLM-callable tool.
 
+## Screenshots
+
+Screenshots coming soon.
+
 ## Install
 
 From GitHub:
