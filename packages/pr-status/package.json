@@ -1,0 +1,28 @@
+{
+  "name": "@jimkring/pi-pr-status",
+  "version": "0.1.0",
+  "description": "Pi extension that shows the current GitHub PR number and title in the footer.",
+  "keywords": ["pi-package", "pi", "pi-extension", "github", "pull-request", "pr-status"],
+  "license": "MIT",
+  "type": "module",
+  "files": ["index.ts", "assets", "README.md", "LICENSE"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimkring/pi-extensions.git",
+    "directory": "packages/pr-status"
+  },
+  "bugs": {
+    "url": "https://github.com/jimkring/pi-extensions/issues"
+  },
+  "homepage": "https://github.com/jimkring/pi-extensions/tree/main/packages/pr-status#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  },
+  "pi": {
+    "extensions": ["./index.ts"]
+  }
+}

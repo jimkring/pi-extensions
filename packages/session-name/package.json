@@ -1,0 +1,28 @@
+{
+  "name": "@jimkring/pi-session-name",
+  "version": "0.1.0",
+  "description": "Pi extension that exposes session naming as an LLM-callable tool.",
+  "keywords": ["pi-package", "pi", "pi-extension", "session-name"],
+  "license": "MIT",
+  "type": "module",
+  "files": ["index.ts", "README.md", "LICENSE"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimkring/pi-extensions.git",
+    "directory": "packages/session-name"
+  },
+  "bugs": {
+    "url": "https://github.com/jimkring/pi-extensions/issues"
+  },
+  "homepage": "https://github.com/jimkring/pi-extensions/tree/main/packages/session-name#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  },
+  "pi": {
+    "extensions": ["./index.ts"]
+  }
+}

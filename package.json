@@ -1,25 +1,38 @@
 {
   "name": "@jimkring/pi-extensions",
   "version": "0.1.0",
-  "description": "Pi extensions for Jim Kring's coding workflow.",
+  "description": "Pi extension packages for Jim Kring's coding workflow.",
   "keywords": ["pi-package", "pi", "pi-extension"],
   "license": "MIT",
   "type": "module",
-  "files": ["extensions", "README.md", "CHANGELOG.md", "LICENSE"],
+  "workspaces": ["packages/*"],
+  "files": ["packages", "README.md", "CHANGELOG.md", "LICENSE"],
   "scripts": {
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "pack:dry-run": "npm pack --dry-run && npm pack --workspace @jimkring/pi-pr-status --dry-run && npm pack --workspace @jimkring/pi-session-name --dry-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimkring/pi-extensions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jimkring/pi-extensions/issues"
+  },
+  "homepage": "https://github.com/jimkring/pi-extensions#readme",
+  "publishConfig": {
+    "access": "public"
   },
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": "*",
     "typebox": "*"
   },
   "devDependencies": {
-    "@earendil-works/pi-coding-agent": "^0.75.5",
+    "@earendil-works/pi-coding-agent": "^0.78.0",
     "@types/node": "^24.10.1",
     "typebox": "^1.0.60",
     "typescript": "^5.9.3"
   },
   "pi": {
-    "extensions": ["./extensions"]
+    "extensions": ["./packages/pr-status", "./packages/session-name"]
   }
 }
