@@ -1,16 +1,16 @@
-# `pr-status` Plugin Readiness Assessment
+# `github-pr-indicator` Plugin Readiness Assessment
 
 Date: 2026-05-31
 
-This document captures the current assessment of moving the `pr-status` extension toward publishing as an official Pi plugin/package.
+This document captures the current assessment of moving the `github-pr-indicator` extension toward publishing as an official Pi plugin/package.
 
 ## Current State
 
-`pr-status` is close to package-ready, but should receive a small hardening pass before being promoted as an official plugin.
+`github-pr-indicator` is close to package-ready, but should receive a small hardening pass before being promoted as an official plugin.
 
 Positive indicators:
 
-- The repository is now organized as a workspace/monorepo with a dedicated `packages/pr-status` package.
+- The repository is now organized as a workspace/monorepo with a dedicated `packages/github-pr-indicator` package.
 - The root package remains a bundle package for installing all extensions together.
 - `package.json` files include the `pi-package` keyword where appropriate.
 - Pi extension resources are declared via `pi.extensions`.
@@ -27,7 +27,7 @@ The repository now uses a monorepo layout:
 
 ```text
 packages/
-  pr-status/
+  github-pr-indicator/
     package.json
     index.ts
   session-name/
@@ -41,23 +41,23 @@ The root package remains a bundle package:
 {
   "name": "@jimkring/pi-extensions",
   "pi": {
-    "extensions": ["./packages/pr-status", "./packages/session-name"]
+    "extensions": ["./packages/github-pr-indicator", "./packages/session-name"]
   }
 }
 ```
 
-The focused `pr-status` package is named `@jimkring/pi-pr-status` and loads only its own entry point:
+The focused `github-pr-indicator` package is named `@jimkring/pi-github-pr-indicator` and loads only its own entry point:
 
 ```json
 {
-  "name": "@jimkring/pi-pr-status",
+  "name": "@jimkring/pi-github-pr-indicator",
   "pi": {
     "extensions": ["./index.ts"]
   }
 }
 ```
 
-Remaining decision: whether to eventually transfer/rename the package under an official namespace such as `@earendil-works/pi-pr-status`.
+Remaining decision: whether to eventually transfer/rename the package under an official namespace such as `@earendil-works/pi-github-pr-indicator`.
 
 ### 2. Harden Runtime Behavior
 
@@ -119,7 +119,7 @@ Minimum manual validation matrix:
 - GitHub repository with no PR for the current branch: no footer status.
 - GitHub repository with an open PR: shows `PR #1234 (title)`.
 - Branch switch: footer updates.
-- PR creation: `pr_status_update` tool refreshes footer.
+- PR creation: `github_pr_indicator_update` tool refreshes footer.
 - Missing `gh`: graceful behavior.
 - Unauthenticated `gh`: graceful behavior.
 - `/reload`: watcher cleanup and restart work correctly.
@@ -132,24 +132,24 @@ Once hardened and documented:
 
 ```bash
 npm run check
-npm pack --workspace @jimkring/pi-pr-status --dry-run
-npm publish --workspace @jimkring/pi-pr-status --access public
+npm pack --workspace @jimkring/pi-github-pr-indicator --dry-run
+npm publish --workspace @jimkring/pi-github-pr-indicator --access public
 ```
 
 Users should then be able to install with:
 
 ```bash
-pi install npm:@jimkring/pi-pr-status
+pi install npm:@jimkring/pi-github-pr-indicator
 ```
 
 ## Suggested Next Milestone
 
-Complete one hardening pass in `packages/pr-status`:
+Complete one hardening pass in `packages/github-pr-indicator`:
 
 1. Replace synchronous command execution with async `pi.exec()` plus timeouts.
 2. Add debounce/overlap/stale-result protection around refreshes.
 3. Add graceful one-time setup warnings for missing or unauthenticated `gh`.
 4. Consider adding gallery metadata once a supported preview image or video is available.
-5. Run `npm run check && npm pack --workspace @jimkring/pi-pr-status --dry-run`.
+5. Run `npm run check && npm pack --workspace @jimkring/pi-github-pr-indicator --dry-run`.
 
-After that, `pr-status` should be credible as an official Pi plugin candidate.
+After that, `github-pr-indicator` should be credible as an official Pi plugin candidate.

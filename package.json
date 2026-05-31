@@ -9,7 +9,7 @@
   "files": ["packages", "README.md", "CHANGELOG.md", "LICENSE"],
   "scripts": {
     "check": "tsc --noEmit",
-    "pack:dry-run": "npm pack --dry-run && npm pack --workspace @jimkring/pi-pr-status --dry-run && npm pack --workspace @jimkring/pi-session-name --dry-run"
+    "pack:dry-run": "npm pack --dry-run && npm pack --workspace @jimkring/pi-github-pr-indicator --dry-run && npm pack --workspace @jimkring/pi-session-name --dry-run"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,6 @@
     "typescript": "^5.9.3"
   },
   "pi": {
-    "extensions": ["./packages/pr-status", "./packages/session-name"]
+    "extensions": ["./packages/github-pr-indicator", "./packages/session-name"]
   }
 }

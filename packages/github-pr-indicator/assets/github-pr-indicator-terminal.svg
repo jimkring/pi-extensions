@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
-  <title id="title">Pi terminal showing the pr-status extension</title>
-  <desc id="desc">A terminal window running Pi with a footer status item that reads PR #42 (Add README screenshot for pr-status).</desc>
+  <title id="title">Pi terminal showing the GitHub PR indicator extension</title>
+  <desc id="desc">A terminal window running Pi with a footer status item that reads PR #42 (Add README screenshot for github-pr-indicator).</desc>
   <defs>
     <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#101827"/>
@@ -50,7 +50,7 @@
   <text x="88" y="411" class="mono body cyan">╰──────────────────────────────────────────────────────────────╯</text>
 
   <text x="88" y="474" class="mono body yellow">User</text>
-  <text x="153" y="474" class="mono body text">Update the README with a screenshot of pr-status.</text>
+  <text x="153" y="474" class="mono body text">Update the README with a screenshot of github-pr-indicator.</text>
   <text x="88" y="526" class="mono body accent">Assistant</text>
   <text x="207" y="526" class="mono body text">I'll add an asset and embed it in README.md.</text>
 
@@ -63,5 +63,5 @@
   <text x="744" y="697" class="mono footer muted">│</text>
   <text x="768" y="697" class="mono footer muted">PR</text>
   <text x="806" y="697" class="mono footer accent">#42</text>
-  <text x="858" y="697" class="mono footer muted">(Add README screenshot for pr-status)</text>
+  <text x="858" y="697" class="mono footer muted">(Add README screenshot for github-pr-indicator)</text>
 </svg>

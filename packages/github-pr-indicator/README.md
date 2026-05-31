@@ -1,21 +1,21 @@
-# `@jimkring/pi-pr-status`
+# `@jimkring/pi-github-pr-indicator`
 
-Pi extension that shows the current GitHub PR number and title in the Pi footer.
+Pi extension that shows the current GitHub pull request in the Pi footer.
 
-![Screenshot of the pr-status extension showing a PR in the Pi terminal footer](assets/pr-status-terminal.svg)
+![Screenshot of the GitHub PR indicator extension showing a PR in the Pi terminal footer](assets/github-pr-indicator-terminal.svg)
 
 ## Install
 
 After publication:
 
 ```bash
-pi install npm:@jimkring/pi-pr-status
+pi install npm:@jimkring/pi-github-pr-indicator
 ```
 
 For local development from this repository:
 
 ```bash
-pi -e ./packages/pr-status
+pi -e ./packages/github-pr-indicator
 ```
 
 The repository root can also be installed as a bundle that includes this extension:
@@ -29,14 +29,14 @@ pi install git:github.com/jimkring/pi-extensions
 - Git repository checkout
 - GitHub CLI: `gh`
 - Authenticated GitHub CLI session via `gh auth login`
-- Current branch must have an open GitHub PR for a footer status to appear
+- Current branch must have an open GitHub PR for a footer indicator to appear
 
 ## Behavior
 
 - Runs read-only `git` and `gh pr view` commands.
 - Shows `PR #1234 (title)` in the Pi footer when a PR is found.
 - Clears the footer indicator when no PR is found.
-- Registers the `pr_status_update` tool so the agent can refresh the footer after creating a PR or switching branches.
+- Registers the `github_pr_indicator_update` tool so the agent can refresh the footer after creating a PR or switching branches.
 
 ## License
 

@@ -6,13 +6,13 @@ This repository is organized as a small monorepo: each extension lives in its ow
 
 ## Packages
 
-### `@jimkring/pi-pr-status`
+### `@jimkring/pi-github-pr-indicator`
 
-Shows the current GitHub PR number and title in the Pi footer.
+Shows the current GitHub pull request in the Pi footer.
 
-![Screenshot of the pr-status extension showing a PR in the Pi terminal footer](packages/pr-status/assets/pr-status-terminal.svg)
+![Screenshot of the GitHub PR indicator extension showing a PR in the Pi terminal footer](packages/github-pr-indicator/assets/github-pr-indicator-terminal.svg)
 
-Package directory: [`packages/pr-status`](packages/pr-status)
+Package directory: [`packages/github-pr-indicator`](packages/github-pr-indicator)
 
 ### `@jimkring/pi-session-name`
 
@@ -35,7 +35,7 @@ pi install git:github.com/jimkring/pi-extensions
 After the workspace packages are published, install them individually:
 
 ```bash
-pi install npm:@jimkring/pi-pr-status
+pi install npm:@jimkring/pi-github-pr-indicator
 pi install npm:@jimkring/pi-session-name
 ```
 
@@ -44,7 +44,7 @@ pi install npm:@jimkring/pi-session-name
 Run one package at a time:
 
 ```bash
-pi -e ./packages/pr-status
+pi -e ./packages/github-pr-indicator
 pi -e ./packages/session-name
 ```
 
@@ -56,7 +56,7 @@ pi -e .
 
 ### Select one extension from the GitHub bundle
 
-Pi does not currently treat `git:github.com/jimkring/pi-extensions/pr-status` as a subdirectory install. That URL is parsed as a separate Git repository.
+Pi does not currently treat `git:github.com/jimkring/pi-extensions/github-pr-indicator` as a subdirectory install. That URL is parsed as a separate Git repository.
 
 To load only one extension from the GitHub bundle before npm publishing, use package filtering in Pi settings:
 
@@ -65,7 +65,7 @@ To load only one extension from the GitHub bundle before npm publishing, use pac
   "packages": [
     {
       "source": "git:github.com/jimkring/pi-extensions",
-      "extensions": ["packages/pr-status/index.ts"],
+      "extensions": ["packages/github-pr-indicator/index.ts"],
       "skills": [],
       "prompts": [],
       "themes": []

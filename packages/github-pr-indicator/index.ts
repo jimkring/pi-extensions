@@ -21,18 +21,18 @@ export default function (pi: ExtensionAPI) {
 	let extensionContext: ExtensionContext | null = null;
 
 	pi.registerTool({
-		name: "pr_status_update",
-		label: "PR Status Update",
-		description: "Refresh the PR status indicator in the UI footer.",
-		promptSnippet: "Refresh the PR number shown in the footer after creating a PR or switching branches",
+		name: "github_pr_indicator_update",
+		label: "GitHub PR Indicator Update",
+		description: "Refresh the GitHub PR indicator in the Pi footer.",
+		promptSnippet: "Refresh the GitHub PR indicator shown in the footer after creating a PR or switching branches",
 		promptGuidelines: [
-			"Call pr_status_update after creating a PR or switching branches so the footer shows the new PR number immediately.",
+			"Call github_pr_indicator_update after creating a PR or switching branches so the footer shows the new PR number immediately.",
 		],
 		parameters: Type.Object({}),
 		async execute(_toolCallId, _params, _signal, _onUpdate, ctx) {
 			updateStatus(ctx);
 			return {
-				content: [{ type: "text", text: "PR status indicator refreshed." }],
+				content: [{ type: "text", text: "GitHub PR indicator refreshed." }],
 				details: {},
 			};
 		},
@@ -92,7 +92,7 @@ export default function (pi: ExtensionAPI) {
 	function updateStatus(ctx: ExtensionContext) {
 		const gitRoot = findGitRoot(ctx.cwd);
 		if (!gitRoot) {
-			ctx.ui.setStatus("pr-status", undefined);
+			ctx.ui.setStatus("github-pr-indicator", undefined);
 			return;
 		}
 
@@ -101,9 +101,9 @@ export default function (pi: ExtensionAPI) {
 			const prefix = ctx.ui.theme.fg("dim", "PR");
 			const number = ctx.ui.theme.fg("accent", `#${prInfo.number}`);
 			const title = prInfo.title ? ` ${ctx.ui.theme.fg("dim", `(${prInfo.title})`)}` : "";
-			ctx.ui.setStatus("pr-status", `${prefix} ${number}${title}`);
+			ctx.ui.setStatus("github-pr-indicator", `${prefix} ${number}${title}`);
 		} else {
-			ctx.ui.setStatus("pr-status", undefined);
+			ctx.ui.setStatus("github-pr-indicator", undefined);
 		}
 	}
 
