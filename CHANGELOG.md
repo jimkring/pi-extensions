@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Moved `github-pr-indicator` to a standalone GitHub repository and linked it here as a Git submodule.
+
 ## [0.1.0] - 2026-05-31
 
 ### Added

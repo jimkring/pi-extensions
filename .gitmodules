@@ -1,0 +1,4 @@
+[submodule "packages/github-pr-indicator"]
+	path = packages/github-pr-indicator
+	url = https://github.com/jimkring/pi-github-pr-indicator.git
+	branch = main

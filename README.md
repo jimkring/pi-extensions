@@ -2,7 +2,7 @@
 
 Pi extension packages for Jim Kring's coding workflow.
 
-This repository is organized as a small monorepo: each extension lives in its own package under `packages/`, while the repository root remains a bundle package that installs all extensions together.
+This repository is an aggregator for related Pi extensions. Some extensions live in standalone repositories and are included here as Git submodules for local bundle development.
 
 ## Packages
 
@@ -10,9 +10,11 @@ This repository is organized as a small monorepo: each extension lives in its ow
 
 Shows the current GitHub pull request in the Pi footer.
 
-![Screenshot of the GitHub PR indicator extension showing a PR in the Pi terminal footer](packages/github-pr-indicator/assets/github-pr-indicator-terminal.svg)
+Standalone repo: <https://github.com/jimkring/pi-github-pr-indicator>
 
-Package directory: [`packages/github-pr-indicator`](packages/github-pr-indicator)
+Submodule directory: [`packages/github-pr-indicator`](packages/github-pr-indicator)
+
+![Screenshot of the GitHub PR indicator extension showing a PR in the Pi terminal footer](packages/github-pr-indicator/assets/github-pr-indicator-terminal.svg)
 
 ### `@jimkring/pi-session-name`
 
@@ -22,24 +24,37 @@ Package directory: [`packages/session-name`](packages/session-name)
 
 ## Install
 
-### Install all extensions from GitHub
-
-The root package still installs all extensions:
+### Recommended: install standalone extensions directly
 
 ```bash
-pi install git:github.com/jimkring/pi-extensions
+pi install git:github.com/jimkring/pi-github-pr-indicator
 ```
 
-### Install individual packages from npm
-
-After the workspace packages are published, install them individually:
+After npm publication, packages can also be installed individually:
 
 ```bash
 pi install npm:@jimkring/pi-github-pr-indicator
 pi install npm:@jimkring/pi-session-name
 ```
 
-### Local development
+### Root bundle / local development
+
+Clone this aggregator with submodules before running the root bundle locally:
+
+```bash
+git clone --recurse-submodules https://github.com/jimkring/pi-extensions.git
+cd pi-extensions
+npm install
+pi -e .
+```
+
+If you already cloned without submodules:
+
+```bash
+git submodule update --init --recursive
+```
+
+> Note: current Pi git package installs do not document submodule initialization. Prefer the standalone install command above for `github-pr-indicator` instead of relying on `pi install git:github.com/jimkring/pi-extensions` to populate submodules.
 
 Run one package at a time:
 
@@ -48,30 +63,10 @@ pi -e ./packages/github-pr-indicator
 pi -e ./packages/session-name
 ```
 
-Or run the root bundle locally:
+Update the `github-pr-indicator` submodule to its latest `main` branch:
 
 ```bash
-pi -e .
-```
-
-### Select one extension from the GitHub bundle
-
-Pi does not currently treat `git:github.com/jimkring/pi-extensions/github-pr-indicator` as a subdirectory install. That URL is parsed as a separate Git repository.
-
-To load only one extension from the GitHub bundle before npm publishing, use package filtering in Pi settings:
-
-```json
-{
-  "packages": [
-    {
-      "source": "git:github.com/jimkring/pi-extensions",
-      "extensions": ["packages/github-pr-indicator/index.ts"],
-      "skills": [],
-      "prompts": [],
-      "themes": []
-    }
-  ]
-}
+git submodule update --remote packages/github-pr-indicator
 ```
 
 ## Development

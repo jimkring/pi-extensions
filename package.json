@@ -7,7 +7,16 @@
   "author": "Jim Kring",
   "type": "module",
   "workspaces": ["packages/*"],
-  "files": ["packages", "README.md", "CHANGELOG.md", "LICENSE"],
+  "files": [
+    "packages/*/index.ts",
+    "packages/*/assets/**",
+    "packages/*/README.md",
+    "packages/*/LICENSE",
+    "packages/*/package.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "scripts": {
     "check": "tsc --noEmit",
     "pack:dry-run": "npm pack --dry-run && npm pack --workspace @jimkring/pi-github-pr-indicator --dry-run && npm pack --workspace @jimkring/pi-session-name --dry-run"

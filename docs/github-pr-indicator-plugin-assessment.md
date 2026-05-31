@@ -6,49 +6,46 @@ This document captures the current assessment of moving the `github-pr-indicator
 
 ## Current State
 
-`github-pr-indicator` has received the recommended package-structure, documentation, metadata, and runtime-hardening pass. It is credible as an official Pi plugin candidate pending final namespace/gallery decisions, manual validation, and npm publication.
+`github-pr-indicator` has been split into its own standalone GitHub repository:
+
+```text
+https://github.com/jimkring/pi-github-pr-indicator
+```
+
+The package is credible as an official Pi plugin candidate pending final namespace/gallery decisions, manual validation, and npm publication.
 
 Positive indicators:
 
-- The repository is now organized as a workspace/monorepo with a dedicated `packages/github-pr-indicator` package.
-- The root package remains a bundle package for installing all extensions together.
-- `package.json` files include the `pi-package` keyword where appropriate.
+- The focused package now has a standalone repository that can be installed directly with `pi install git:github.com/jimkring/pi-github-pr-indicator`.
+- This `pi-extensions` repository now keeps `packages/github-pr-indicator` as a Git submodule for local aggregate development.
+- `package.json` includes the `pi-package` keyword.
 - Pi extension resources are declared via `pi.extensions`.
 - README files document the package, screenshot, dependencies, and read-only behavior.
-- Runtime behavior now uses async `pi.exec()` with timeouts, debouncing, overlap protection, stale-result protection, UI guards, footer-safe title truncation, and one-time setup warnings.
+- Runtime behavior uses async `pi.exec()` with timeouts, debouncing, overlap protection, stale-result protection, UI guards, footer-safe title truncation, and one-time setup warnings.
 - Release metadata and a first `0.1.0` changelog entry are present.
 - The package has not yet been published to npm.
 
 ## Recommended Remaining Steps
 
-### 1. Decide the Package Shape
+### 1. Package Shape
 
-Status: mostly complete.
+Status: complete for GitHub distribution.
 
-The repository now uses a monorepo layout:
+The standalone repo has this shape:
 
 ```text
-packages/
-  github-pr-indicator/
-    package.json
-    index.ts
-  session-name/
-    package.json
-    index.ts
+pi-github-pr-indicator/
+  package.json
+  index.ts
+  README.md
+  CHANGELOG.md
+  LICENSE
+  tsconfig.json
+  assets/
+    github-pr-indicator-terminal.svg
 ```
 
-The root package remains a bundle package:
-
-```json
-{
-  "name": "@jimkring/pi-extensions",
-  "pi": {
-    "extensions": ["./packages/github-pr-indicator", "./packages/session-name"]
-  }
-}
-```
-
-The focused `github-pr-indicator` package is named `@jimkring/pi-github-pr-indicator` and loads only its own entry point:
+The focused package is named `@jimkring/pi-github-pr-indicator` and loads only its own entry point:
 
 ```json
 {
@@ -86,7 +83,7 @@ Commands used:
 
 Status: complete.
 
-The README now explicitly states:
+The README explicitly states:
 
 - Requires GitHub CLI: `gh`.
 - Requires `gh auth login`.
@@ -135,12 +132,18 @@ For stronger confidence, extract git/GitHub/status formatting logic into testabl
 
 ### 6. Publish Path
 
-When ready to publish:
+Current GitHub install path:
+
+```bash
+pi install git:github.com/jimkring/pi-github-pr-indicator
+```
+
+When ready to publish to npm:
 
 ```bash
 npm run check
-npm pack --workspace @jimkring/pi-github-pr-indicator --dry-run
-npm publish --workspace @jimkring/pi-github-pr-indicator --access public
+npm pack --dry-run
+npm publish --access public
 ```
 
 Users should then be able to install with:
@@ -153,7 +156,7 @@ pi install npm:@jimkring/pi-github-pr-indicator
 
 Finalize release:
 
-1. Run the manual validation matrix above.
+1. Run the manual validation matrix above against the standalone GitHub repo install.
 2. Decide whether to publish under `@jimkring/pi-github-pr-indicator` first or transfer/rename under an official namespace.
 3. Add gallery metadata if a supported preview image/video URL is available.
-4. Publish with `npm publish --workspace @jimkring/pi-github-pr-indicator --access public`.
+4. Publish with `npm publish --access public` from the standalone repo.
