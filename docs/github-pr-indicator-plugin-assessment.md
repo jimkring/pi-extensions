@@ -6,7 +6,7 @@ This document captures the current assessment of moving the `github-pr-indicator
 
 ## Current State
 
-`github-pr-indicator` is close to package-ready, but should receive a small hardening pass before being promoted as an official plugin.
+`github-pr-indicator` has received the recommended package-structure, documentation, metadata, and runtime-hardening pass. It is credible as an official Pi plugin candidate pending final namespace/gallery decisions, manual validation, and npm publication.
 
 Positive indicators:
 
@@ -14,7 +14,9 @@ Positive indicators:
 - The root package remains a bundle package for installing all extensions together.
 - `package.json` files include the `pi-package` keyword where appropriate.
 - Pi extension resources are declared via `pi.extensions`.
-- README files document the package and screenshot.
+- README files document the package, screenshot, dependencies, and read-only behavior.
+- Runtime behavior now uses async `pi.exec()` with timeouts, debouncing, overlap protection, stale-result protection, UI guards, footer-safe title truncation, and one-time setup warnings.
+- Release metadata and a first `0.1.0` changelog entry are present.
 - The package has not yet been published to npm.
 
 ## Recommended Remaining Steps
@@ -61,22 +63,20 @@ Remaining decision: whether to eventually transfer/rename the package under an o
 
 ### 2. Harden Runtime Behavior
 
-The current implementation uses synchronous shell execution via `execFileSync()` for both `git` and `gh` commands.
+Status: complete.
 
-That is acceptable for local experimentation, but less ideal for an official plugin because it can block Pi's TUI while `gh pr view` performs network work.
+The implementation now:
 
-Recommended changes:
+- Uses async `pi.exec()` instead of synchronous shell execution.
+- Applies short command timeouts: 3 seconds for `git`, 5 seconds for `gh`.
+- Debounces refreshes from file watcher events.
+- Avoids overlapping refresh/`gh` work.
+- Ignores stale results when the branch changes while a refresh is in flight.
+- Skips UI work when `ctx.hasUI` is false.
+- Sanitizes and truncates long PR titles for footer safety.
+- Notifies at most once for common setup problems such as missing `gh` or unauthenticated `gh`.
 
-- Replace `execFileSync()` with `pi.exec()`.
-- Add short command timeouts, probably 3-5 seconds.
-- Debounce refreshes from file watcher events.
-- Avoid overlapping `gh` calls.
-- Ignore stale results if the branch changes while a refresh is in flight.
-- Skip UI work when `ctx.hasUI` is false.
-- Truncate long PR titles for footer safety.
-- Notify at most once for common setup problems such as missing `gh` or unauthenticated `gh`.
-
-Commands that still need to run:
+Commands used:
 
 - `git rev-parse --show-toplevel`
 - `git rev-parse --git-path HEAD`
@@ -84,7 +84,9 @@ Commands that still need to run:
 
 ### 3. Document Dependencies and Behavior Clearly
 
-The README should explicitly state:
+Status: complete.
+
+The README now explicitly states:
 
 - Requires GitHub CLI: `gh`.
 - Requires `gh auth login`.
@@ -97,16 +99,21 @@ This is important because Pi packages and extensions run with full local system 
 
 ### 4. Add Release and Package Metadata
 
-Before npm or gallery publication, add or verify:
+Status: mostly complete.
+
+Verified or added:
 
 - `repository`
 - `homepage`
 - `bugs`
 - `author`
 - `publishConfig.access: "public"` for scoped public npm packages
-- `pi.image` or `pi.video` gallery metadata
 - Current Pi dev dependency version
 - A concrete changelog entry for the first published release
+
+Still pending:
+
+- `pi.image` or `pi.video` gallery metadata once a supported PNG/JPEG/GIF/WebP image or MP4 video URL is available.
 
 The package gallery discovers packages tagged with `pi-package`; preview metadata improves presentation.
 
@@ -128,7 +135,7 @@ For stronger confidence, extract git/GitHub/status formatting logic into testabl
 
 ### 6. Publish Path
 
-Once hardened and documented:
+When ready to publish:
 
 ```bash
 npm run check
@@ -144,12 +151,9 @@ pi install npm:@jimkring/pi-github-pr-indicator
 
 ## Suggested Next Milestone
 
-Complete one hardening pass in `packages/github-pr-indicator`:
+Finalize release:
 
-1. Replace synchronous command execution with async `pi.exec()` plus timeouts.
-2. Add debounce/overlap/stale-result protection around refreshes.
-3. Add graceful one-time setup warnings for missing or unauthenticated `gh`.
-4. Consider adding gallery metadata once a supported preview image or video is available.
-5. Run `npm run check && npm pack --workspace @jimkring/pi-github-pr-indicator --dry-run`.
-
-After that, `github-pr-indicator` should be credible as an official Pi plugin candidate.
+1. Run the manual validation matrix above.
+2. Decide whether to publish under `@jimkring/pi-github-pr-indicator` first or transfer/rename under an official namespace.
+3. Add gallery metadata if a supported preview image/video URL is available.
+4. Publish with `npm publish --workspace @jimkring/pi-github-pr-indicator --access public`.

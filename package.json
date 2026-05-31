@@ -4,6 +4,7 @@
   "description": "Pi extension packages for Jim Kring's coding workflow.",
   "keywords": ["pi-package", "pi", "pi-extension"],
   "license": "MIT",
+  "author": "Jim Kring",
   "type": "module",
   "workspaces": ["packages/*"],
   "files": ["packages", "README.md", "CHANGELOG.md", "LICENSE"],

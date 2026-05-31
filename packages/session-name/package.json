@@ -4,6 +4,7 @@
   "description": "Pi extension that exposes session naming as an LLM-callable tool.",
   "keywords": ["pi-package", "pi", "pi-extension", "session-name"],
   "license": "MIT",
+  "author": "Jim Kring",
   "type": "module",
   "files": ["index.ts", "README.md", "LICENSE"],
   "repository": {
